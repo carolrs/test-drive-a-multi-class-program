@@ -1,0 +1,120 @@
+# Diary Class Design 
+
+## 1. Describe the Problem
+As a user
+So that I can keep track of my tasks
+I want a program that I can add todo tasks to and see a list of them.
+
+As a user
+So that I can focus on tasks to complete
+I want to mark tasks as complete
+## 2. Design the Class Interface
+
+_Include the initializer and public methods with all parameters and return values._
+
+```ruby
+# EXAMPLE
+class TodoList
+  def initialize
+  end
+
+  def add(todo) # todo is an instance of Todo
+    # Returns nothing
+  end
+
+  def incomplete
+    # Returns all non-done todos
+  end
+
+  def complete
+    # Returns all complete todos
+  end
+
+  def give_up!
+    # Marks all todos as complete
+  end
+end
+
+class Todo
+  def initialize(task) # task is a string
+    # ...
+  end
+
+  def task
+    # Returns the task as a string
+  end
+
+  def mark_done!
+    # Marks the todo as done
+    # Returns nothing
+  end
+
+  def done?
+    # Returns true if the task is done
+    # Otherwise, false
+  end
+end
+```
+## 3. Create Examples as Tests
+_Make a list of examples of how the class will behave in different situations._
+```ruby
+# EXAMPLE
+# 1
+todo_task = Todo.new("Go for a run")
+todo_task.done? # => false
+# 2
+todo_task = Todo.new("Go for a run")
+todo_task.task  # "Go for a run"
+
+#3
+Todo.new(nil) #=> "Invalid task" 
+
+#4
+Todo.new("") #=> Invalid task" 
+
+#5
+todo_task = Todo.new("Go for a run")
+todo_task.mark_done!
+todo_task.done? #=> true
+
+Integration:
+#1
+todo = Todo.new("Go for a run")
+todo_list = TodoList.new
+todo_list.add(todo)
+todo_list.incomplete #=> [todo]
+
+#2
+todo_1 = Todo.new("Go for a run")
+todo_2 = Todo.new("Buy bread")
+todo_1.mark_done!
+todo_list = TodoList.new
+todo_list.add(todo_1)
+todo_list.add(todo_2)
+todo_list.complete #=> [todo_1]
+
+#3
+todo_1 = Todo.new("Go for a run")
+todo_2 = Todo.new("Buy bread")
+todo_1.mark_done!
+todo_list = TodoList.new
+todo_list.add(todo_1)
+todo_list.add(todo_2)
+todo_list.incomplete #=>[todo_2]
+
+#4
+todo_1 = Todo.new("Go for a run")
+todo_2 = Todo.new("Buy bread")
+todo_list = TodoList.new
+todo_list.add(todo_1)
+todo_list.add(todo_2)
+todo_list.give_up!
+todo_list.complete #=> [todo_1, todo_2]
+
+```
+
+_Encode each example as a test. You can add to the above list as you go._
+
+## 4. Implement the Behaviour
+
+_After each test you write, follow the test-driving process of red, green, refactor to implement the behaviour._
